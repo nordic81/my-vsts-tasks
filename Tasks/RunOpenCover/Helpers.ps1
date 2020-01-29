@@ -235,3 +235,13 @@ function CheckIfDirectory($filePath)
     }
     return $false
 }
+
+function FindCommand ($directory, $commandName) {
+    Write-Host "Checking for '$commandName' in '$directory' tree"
+    $results = Get-ChildItem -Path $directory -Filter $commandName -Recurse -ErrorAction SilentlyContinue -Force
+    if (!$results -or $results.Length -eq 0) {
+        throw "Command '$commandName' not found in directory tree '$directory' (source directory)."
+    }
+    Write-Host "Using $($results[0].FullName)"
+    return $results[0].FullName
+}

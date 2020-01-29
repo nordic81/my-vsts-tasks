@@ -80,7 +80,11 @@ try {
             if ($vs15 -and $vs15.Path) {
                 $vsTestCommand = Get-VSTestConsolePath -Path $vs15.Path
             }
+        } elseif ($vsTestVersion -eq "tools") {
+            Write-Host "Looking for VSTest binary in $Env:AGENT_TOOLSDIRECTORY"
+            $vsTestCommand = FindCommand $Env:AGENT_TOOLSDIRECTORY "vstest.console.exe"
         }
+
         if (!$vsTestCommand) {
             # Nothing found, fallback to latest
             $vsPath = Get-LatestVsVersionFolder

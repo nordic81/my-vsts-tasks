@@ -117,7 +117,8 @@
       "options": {
         "latest": "Latest",
         "15.x": "Visual Studio 2017",
-        "14.0": "Visual Studio 2015"
+        "14.0": "Visual Studio 2015",
+        "tools": "Installed by Tools Installer"
       }
     },
     {

@@ -6,6 +6,14 @@ Currently, there is only one task:
 
 * [_RunOpenCover_](Tasks/RunOpenCover/README.md).
 
+## About
+
+This fork is based on [my-vsts-tasks Version 0.8.0](https://github.com/cklutz/my-vsts-tasks) by [Christian Klutz](https://github.com/cklutz).
+Most of the credit belongs to him.
+
+Changes I've made to the original version:
+* added support for vstest installed by the tools installer
+
 ## Status
 
 |   | Build & Test |
