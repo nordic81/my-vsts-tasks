@@ -108,7 +108,7 @@ try {
         }
     }
 
-    if ($testAssemblyFiles.Count -eq 0) {
+    if (($testAssemblyFiles -is [array]) -and ($testAssemblyFiles.Count -eq 0)) {
         Write-Warning "Specified filter '$testAssembly' matches no files."
         Exit 0
     }

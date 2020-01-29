@@ -13,6 +13,7 @@ Most of the credit belongs to him.
 
 Changes I've made to the original version:
 * added support for vstest installed by the tools installer
+* fixed the count bug as noted in [this issue](https://github.com/cklutz/my-vsts-tasks/issues/2)
 
 ## Status
 
