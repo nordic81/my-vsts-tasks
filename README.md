@@ -15,6 +15,7 @@ Changes I've made to the original version:
 * added support for vstest installed by the tools installer
 * fixed the count bug as noted in [this issue](https://github.com/cklutz/my-vsts-tasks/issues/2)
 * changed the OpenCover registration from **user** to **administrator** so that the task can be run by build agent services
+* added support for multiple .trx files (if you intend to run multiple test-tasks within the same build)
 
 ## Status
 

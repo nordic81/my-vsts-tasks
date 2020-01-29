@@ -198,15 +198,18 @@ try {
     }
 
     # Publish test results.
-    $resultFiles = Find-VstsFiles -LegacyPattern "**\*.trx" -LiteralDirectory $trxDir
-    $testResultParameters = [ordered]@{
-        type = 'VSTest';
-        resultFiles = $resultFiles;
-        runTitle = $runTitle;
-        platform = $platform;
-        config = $configuration;
-        publishRunAttachments = $publishRunAttachments
+    $resultFiles = Find-VstsFiles -LegacyPattern "**\*.trx" -LiteralDirectory $sourcesDirectory
+    foreach ($resultFile in $resultFiles) {
+        $testResultParameters = [ordered]@{
+            type = 'VSTest';
+            resultFiles = $resultFile;
+            runTitle = $runTitle;
+            platform = $platform;
+            config = $configuration;
+            publishRunAttachments = $publishRunAttachments
+        }
     }
+    
 
     SendCommand 'results.publish' $testResultParameters ''
             
