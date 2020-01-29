@@ -160,7 +160,7 @@ try {
         # we should escape them by a backslash.
         $vsconsoleArgs = $vsconsoleArgs.Replace('"', '\"')
 
-        $openCoverConsoleArgs = "-register:user"
+        $openCoverConsoleArgs = "-register:administrator"
         if ($openCoverFilters) {
             # Only append filters, if there actually is a value. This way,
             # the caller could use a fully custom filter situation (e.g.
