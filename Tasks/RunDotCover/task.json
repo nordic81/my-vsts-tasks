@@ -1,10 +1,10 @@
 {
-    "id": "077011c0-8f20-11e7-9c44-c3e20bdea24c",
-    "name": "RunOpenCoverTask",
-    "friendlyName": "Run OpenCover",
-    "description": "Runs VSTest under OpenCover",
-    "author": "Christian Klutz, Norbert Dickmeis",
-    "helpMarkDown": "[More information](https://github.com/nordic81/my-vsts-tasks/blob/master/Tasks/RunOpenCover/README.md)",
+    "id": "90a157f6-02f1-44a1-83e5-5773e4353cd2",
+    "name": "RunDotCoverTask",
+    "friendlyName": "Run dotCover",
+    "description": "Runs VSTest under dotCover",
+    "author": "Norbert Dickmeis",
+    "helpMarkDown": "[More information](https://github.com/nordic81/my-vsts-tasks/blob/master/Tasks/RunDotCover/README.md)",
     "category": "Test",
     "visibility": [
         "Build"
@@ -19,7 +19,7 @@
     "version": {
         "Major": 1,
         "Minor": 0,
-        "Patch": 18
+        "Patch": 36
     },
     "minimumAgentVersion": "1.95.0",
     "instanceNameFormat": "Tests/Coverage - $(testAssembly)",
@@ -76,21 +76,21 @@
             "groupName": "executionOptions"
         },
         {
-            "name": "openCoverFilters",
+            "name": "dotCoverFilters",
             "type": "string",
-            "label": "OpenCover Filter criteria",
+            "label": "dotCover Filter criteria",
             "defaultValue": "+[*]*",
             "required": false,
-            "helpMarkDown": "Additional criteria to filter what OpenCover considers.",
+            "helpMarkDown": "Additional criteria to filter what dotCover considers.",
             "groupName": "executionOptions"
         },
         {
             "name": "disableCodeCoverage",
             "type": "boolean",
-            "label": "Disable OpenCover",
+            "label": "Disable dotCover",
             "defaultValue": "false",
             "required": false,
-            "helpMarkDown": "Disable OpenCover. Run tests without coverage.",
+            "helpMarkDown": "Disable dotCover. Run tests without coverage.",
             "groupName": "executionOptions"
         },
         {
@@ -150,24 +150,25 @@
             "groupName": "advancedExecutionOptions"
         },
         {
-            "name": "openCoverAdditionalCommandLine",
+            "name": "dotCoverAdditionalCommandLine",
             "type": "string",
-            "label": "Additional OpenCover Options",
+            "label": "Additional dotCover Options",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "Other Console options that can be passed to opencover.console.exe. E.g. `-skipautoprops`, see [OpenCover Usage](https://github.com/opencover/opencover/wiki/Usage) for more information.",
+            "helpMarkDown": "Other Console options that can be passed to dotcover.exe. See [dotCover Usage](https://www.jetbrains.com/help/dotcover/dotCover__Console_Runner_Commands.html) for more information.",
             "groupName": "advancedExecutionOptions"
         },
         {
             "name": "toolsLocationMethod",
             "type": "radio",
-            "label": "OpenCover Tools",
+            "label": "dotCover Tools",
             "required": false,
             "groupName": "advancedExecutionOptions",
             "defaultValue": "packaged",
             "options": {
                 "packaged": "Use packaged tools",
-                "location": "Specify Location"
+                "location": "Specify Location",
+                "nuget": "Download tools from nuget"
             }
         },
         {
@@ -176,9 +177,41 @@
             "label": "Path where tools are located",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "The base directory where OpenCover tools are located (e.g. `$(build.sourcesDirectory)\\packages`).",
+            "helpMarkDown": "The base directory where dotCover tools are located (e.g. `$(build.sourcesDirectory)\\packages`).",
             "visibleRule": "toolsLocationMethod = location",
             "groupName": "advancedExecutionOptions"
+        },
+        {
+            "name": "enableDotCoverLog",
+            "type": "boolean",
+            "label": "Enable dotCover logfile",
+            "defaultValue": "false",
+            "required": false,
+            "helpMarkDown": "If enabled, dotCover creates a logfile which will be placed at `$(Build.SourcesDirectory)\\dotCover.log`.",
+            "groupName": "advancedExecutionOptions"
+        },
+        {
+            "name": "nunit3MultiAssemblyWorkAround",
+            "type": "boolean",
+            "label": "Enable Workaround for NUnit 3 tests with multiple assemblies",
+            "defaultValue": "false",
+            "required": false,
+            "helpMarkDown": "If enabled, each detected test assembly runs in a separate vstest call. The code coverage results will then be merged, each test run creates an individual trx file.",
+            "groupName": "advancedExecutionOptions"
+        },
+        {
+            "name": "testSeriesInfo",
+            "type": "pickList",
+            "label": "Test Series",
+            "defaultValue": "single",
+            "required": false,
+            "helpMarkDown": "Gives information whether the test series contains out of multiple test tasks or not. If so, the code coverage results of all tasks will be aggregated into one by the last task of the series.",
+            "groupName": "advancedExecutionOptions",
+            "options": {
+                "single": "Single test task series",
+                "multi1": "Multiple test tasks series, not last one",
+                "multi2": "Last test task in a test task series"
+            }
         },
         {
             "name": "testRunTitle",
@@ -219,7 +252,7 @@
     ],
     "execution": {
         "PowerShell3": {
-            "target": "RunOpenCoverTask.ps1"
+            "target": "RunDotCoverTask.ps1"
         }
     }
 }

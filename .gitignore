@@ -209,3 +209,5 @@ ModelManifest.xml
 /Package
 Tasks/RunOpenCover/tools
 Tasks/RunOpenCover/ps_modules
+Tasks/RunDotCover/tools
+Tasks/RunDotCover/ps_modules

@@ -1,6 +1,7 @@
 {
     "tasks": [
-        "RunOpenCover"
+        "RunOpenCover",
+        "RunDotCover"
     ],
     "taskResources": [
         "*.ps1",

@@ -208,10 +208,10 @@ try {
             config = $configuration;
             publishRunAttachments = $publishRunAttachments
         }
+
+        SendCommand 'results.publish' $testResultParameters ''
     }
     
-
-    SendCommand 'results.publish' $testResultParameters ''
             
     if (!$disableCodeCoverage) {
         # Publish code coverage data.

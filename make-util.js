@@ -304,6 +304,8 @@ var downloadFile = function (url) {
         // download the file
         mkdir('-p', path.join(downloadPath, 'file'));
 
+        // process.env.http_proxy = "http://proxy:80"
+
         if (process.env.http_proxy) {
             $command = 'curl.exe -k -L --proxy "' + process.env.http_proxy + '"';
             if (process.env.http_proxyuser) {

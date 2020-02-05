@@ -2,9 +2,10 @@
 
 Most of the build and test infrastructure is copied from [Microsoft's VSTS Tasks](https://github.com/Microsoft/vsts-tasks).
 
-Currently, there is only one task:
+Currently, there are the follwing tasks:
 
 * [_RunOpenCover_](Tasks/RunOpenCover/README.md).
+* [_RunDotCover_](Tasks/RunDotCover/README.md).
 
 ## About
 
@@ -16,12 +17,13 @@ Changes I've made to the original version:
 * fixed the count bug as noted in [this issue](https://github.com/cklutz/my-vsts-tasks/issues/2)
 * changed the OpenCover registration from **user** to **administrator** so that the task can be run by build agent services
 * added support for multiple .trx files (if you intend to run multiple test-tasks within the same build)
+* added another task which does essentially the same but with JetBrains dotCover, which is much faster compared to OpenCover
 
 ## Status
 
 |   | Build & Test |
 |---|:-----:|
-|![Win](docs/images/win_med.png) **Windows**|[![Build status](https://ci.appveyor.com/api/projects/status/ddr94r6onjfjro23?svg=true)](https://ci.appveyor.com/project/cklutz/my-vsts-tasks)|
+|![Win](docs/images/win_med.png) **Windows**|[![Build status](https://ci.appveyor.com/api/projects/status/9k1g30ayowc4j8wg?svg=true)](https://ci.appveyor.com/project/nordic81/my-vsts-tasks)|
 
 ## Build
 
@@ -51,7 +53,9 @@ Build and test:
 Build a single task:
 
      node make.js build --task RunOpenCover
+     node make.js build --task RunDotCover
      node make.js test --task RunOpenCover
+     node make.js test --task RunDotCover
 
 ## Deploy a Build Task
 
@@ -78,6 +82,7 @@ fails).
 To deploy the result of a local build (e.g. from cloning this repo):
 
      tfx build tasks upload --task.path .\_build\Tasks\RunOpenCoverTask
+     tfx build tasks upload --task.path .\_build\Tasks\RunDotCoverTask
 
 Make sure to update at least the patch version in your `task.json` everytime you
 redeploy a new version (e.g. via `node make.js bump`).
@@ -88,5 +93,6 @@ To deploy the result of a release's `tasks.zip`:
 
      7za x -o %TEMP%\tasks tasks.zip
      tfx build tasks upload --task.path %TEMP%\tasks\RunOpenCoverTask
+     tfx build tasks upload --task.path %TEMP%\tasks\RunDotCoverTask
 
 

@@ -1,9 +1,9 @@
 {
-  "id": "077011c0-8f20-11e7-9c44-c3e20bdea24c",
-  "name": "RunOpenCoverTask",
+  "id": "90a157f6-02f1-44a1-83e5-5773e4353cd2",
+  "name": "RunDotCoverTask",
   "friendlyName": "ms-resource:loc.friendlyName",
   "description": "ms-resource:loc.description",
-  "author": "Christian Klutz, Norbert Dickmeis",
+  "author": "Norbert Dickmeis",
   "helpMarkDown": "ms-resource:loc.helpMarkDown",
   "category": "Test",
   "visibility": [
@@ -19,7 +19,7 @@
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 18
+    "Patch": 33
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "ms-resource:loc.instanceNameFormat",
@@ -76,12 +76,12 @@
       "groupName": "executionOptions"
     },
     {
-      "name": "openCoverFilters",
+      "name": "dotCoverFilters",
       "type": "string",
-      "label": "ms-resource:loc.input.label.openCoverFilters",
+      "label": "ms-resource:loc.input.label.dotCoverFilters",
       "defaultValue": "+[*]*",
       "required": false,
-      "helpMarkDown": "ms-resource:loc.input.help.openCoverFilters",
+      "helpMarkDown": "ms-resource:loc.input.help.dotCoverFilters",
       "groupName": "executionOptions"
     },
     {
@@ -150,12 +150,12 @@
       "groupName": "advancedExecutionOptions"
     },
     {
-      "name": "openCoverAdditionalCommandLine",
+      "name": "dotCoverAdditionalCommandLine",
       "type": "string",
-      "label": "ms-resource:loc.input.label.openCoverAdditionalCommandLine",
+      "label": "ms-resource:loc.input.label.dotCoverAdditionalCommandLine",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "ms-resource:loc.input.help.openCoverAdditionalCommandLine",
+      "helpMarkDown": "ms-resource:loc.input.help.dotCoverAdditionalCommandLine",
       "groupName": "advancedExecutionOptions"
     },
     {
@@ -167,7 +167,8 @@
       "defaultValue": "packaged",
       "options": {
         "packaged": "Use packaged tools",
-        "location": "Specify Location"
+        "location": "Specify Location",
+        "nuget": "Download tools from nuget"
       }
     },
     {
@@ -179,6 +180,38 @@
       "helpMarkDown": "ms-resource:loc.input.help.toolsBaseDirectory",
       "visibleRule": "toolsLocationMethod = location",
       "groupName": "advancedExecutionOptions"
+    },
+    {
+      "name": "enableDotCoverLog",
+      "type": "boolean",
+      "label": "ms-resource:loc.input.label.enableDotCoverLog",
+      "defaultValue": "false",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.enableDotCoverLog",
+      "groupName": "advancedExecutionOptions"
+    },
+    {
+      "name": "nunit3MultiAssemblyWorkAround",
+      "type": "boolean",
+      "label": "ms-resource:loc.input.label.nunit3MultiAssemblyWorkAround",
+      "defaultValue": "false",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.nunit3MultiAssemblyWorkAround",
+      "groupName": "advancedExecutionOptions"
+    },
+    {
+      "name": "testSeriesInfo",
+      "type": "pickList",
+      "label": "ms-resource:loc.input.label.testSeriesInfo",
+      "defaultValue": "single",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.testSeriesInfo",
+      "groupName": "advancedExecutionOptions",
+      "options": {
+        "single": "Single test task series",
+        "multi1": "Multiple test tasks series, not last one",
+        "multi2": "Last test task in a test task series"
+      }
     },
     {
       "name": "testRunTitle",
@@ -219,7 +252,7 @@
   ],
   "execution": {
     "PowerShell3": {
-      "target": "RunOpenCoverTask.ps1"
+      "target": "RunDotCoverTask.ps1"
     }
   }
 }
