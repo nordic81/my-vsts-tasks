@@ -560,7 +560,7 @@ describe('General Suite', function () {
                 var ps = fs.readFileSync(psFile).toString().replace(/\r\n/g, '\n').replace(/\r/g, '\n');
                 var lines: string[] = ps.split('\n');
                 lines.forEach(line => {
-                    if (line.search(/Get-VstsLocString/i) > 0) {
+                    if (line.search(/Get-VstsLocString/i) > 0 && line.search(/PSLIB_/i) == -1) {
                         var result = /Get-VstsLocString +-Key +('[^']+'|"[^"]+"|[^ )]+)/i.exec(line);
                         if (!result) {
                             assert(false, 'Bad format string in file ' + psFile + ' on line: ' + line);
