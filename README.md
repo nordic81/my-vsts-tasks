@@ -81,8 +81,8 @@ fails).
 
 To deploy the result of a local build (e.g. from cloning this repo):
 
-     tfx build tasks upload --task.path .\_build\Tasks\RunOpenCoverTask
-     tfx build tasks upload --task.path .\_build\Tasks\RunDotCoverTask
+     tfx build tasks upload --task.path .\_build\Tasks\RunOpenCover
+     tfx build tasks upload --task.path .\_build\Tasks\RunDotCover
 
 Make sure to update at least the patch version in your `task.json` everytime you
 redeploy a new version (e.g. via `node make.js bump`).
@@ -92,7 +92,7 @@ redeploy a new version (e.g. via `node make.js bump`).
 To deploy the result of a release's `tasks.zip`:
 
      7za x -o %TEMP%\tasks tasks.zip
-     tfx build tasks upload --task.path %TEMP%\tasks\RunOpenCoverTask
-     tfx build tasks upload --task.path %TEMP%\tasks\RunDotCoverTask
+     tfx build tasks upload --task.path %TEMP%\tasks\RunOpenCover
+     tfx build tasks upload --task.path %TEMP%\tasks\RunDotCover
 
 
