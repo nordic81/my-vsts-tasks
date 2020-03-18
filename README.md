@@ -68,7 +68,7 @@ Install the tfx tool by `npm install -g tfx-cli`.
 
 Afterwards make sure you login to your TFS / VSTS instance of choice, for example:
 
-     tfx logon -u http://localhost:8080/tfs/MyCollection --token <token>
+     tfx login -u http://localhost:8080/tfs/MyCollection --token <token>
 
 (You can create a token from your "Security" settings in TFS/VSTS). I recommend setting
 the `TFX_TRACE` environment variable to `1` for all your work, because otherwise the
