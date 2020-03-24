@@ -143,12 +143,17 @@ try {
     if (Test-path $trxDir) {
         Remove-Item -Recurse -Path $trxDir | Out-Null
     }
-    New-Item -Path $trxDir -ItemType Directory | Out-Null
+    New-Item -Path $trxDir -ItemType Directory | Out-Null    
+
+    # delete pre-existing trx files in order to prevent multiple upload
+    Get-ChildItem -Path $sourcesDirectory -Include *.trx -File -Recurse | ForEach-Object { $_.Delete() }
+    Get-ChildItem -Path $tempDir -Include *.trx -File -Recurse | ForEach-Object { $_.Delete() }
     
     $vsconsoleArgs = $testFilesString
     if ($testAdapterPath) { $vsconsoleArgs += " /TestAdapterPath:""$testAdapterPath""" }
     if ($testFilterCriteria) { $vsconsoleArgs += " /TestCaseFilter:""$testFiltercriteria""" }
     if ($runSettingsFile) { $vsconsoleArgs += " /Settings:""$runSettingsFile""" }
+    $vsconsoleArgs += " /ResultsDirectory:""$trxDir"""
     $vsconsoleArgs += " /logger:trx"
     if ($testAdditionalCommandLine) {
         $vsconsoleArgs += " "
@@ -208,6 +213,7 @@ try {
                 if ($testAdapterPath) { $vsconsoleArgs += " /TestAdapterPath:""$testAdapterPath""" }
                 if ($testFilterCriteria) { $vsconsoleArgs += " /TestCaseFilter:""$testFiltercriteria""" }
                 if ($runSettingsFile) { $vsconsoleArgs += " /Settings:""$runSettingsFile""" }
+                $vsconsoleArgs += " /ResultsDirectory:""$trxDir"""
                 $vsconsoleArgs += " /logger:trx"
                 if ($testAdditionalCommandLine) {
                     $vsconsoleArgs += " "
@@ -295,10 +301,6 @@ try {
     if (($testSeriesInfo -ne "multi1") -or ($returnCodeVsTest -ne 0) -or ($returnCodeCoverage -ne 0) -or ($returnCodeMerge -ne 0) -or ($returnCodeReportGen -ne 0)) {
         PublishTestResults $sourcesDirectory $runTitle $platform $configuration $publishRunAttachments
         PublishTestResults $tempDir $runTitle $platform $configuration $publishRunAttachments
-
-        # delete trx files in order to prevent multiple upload in case of a test failure
-        Get-ChildItem -Path $sourcesDirectory -Include *.trx -File -Recurse | ForEach-Object { $_.Delete() }
-        Get-ChildItem -Path $tempDir -Include *.trx -File -Recurse | ForEach-Object { $_.Delete() }
     }
             
     if (!$disableCodeCoverage -and ($testSeriesInfo -ne "multi1")) {
